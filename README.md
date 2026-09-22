@@ -1,5 +1,5 @@
 # @ casualterrorist
-Portfolio website for artist @ casualterrorist
+#### Portfolio website for artist/animator @ casualterrorist
 
 ## Pages
 ### Home page:
@@ -9,13 +9,16 @@ Portfolio website for artist @ casualterrorist
 
 ### Shop page:
 **pages/clothes.html:** Merchandise shop that redirects to threadless profile.
+
 <img  width="50%" alt="shirts" src="https://github.com/user-attachments/assets/64ec2d4b-9299-4c0a-a01c-319034212cf2" />
 
 ### Videos page:
 **pages/videos.html:** Completed animations.
+
 <img width="50%" alt="videos" src="https://github.com/user-attachments/assets/6d78dc3f-d6a0-4a15-8b62-50b60b6fb46f" />
 
 ### Art page: 
 **pages/art.html:** Artworks and shorter media.
+
 <img width="50%" alt="portfolio" src="https://github.com/user-attachments/assets/661e0f39-84f9-490a-a9c8-43b64ab923f1" />
 
