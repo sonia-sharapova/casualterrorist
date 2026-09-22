@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ryanw0rld - Behind The Scenes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../styles/bts.css">
+</head>
+<body>
+<!-- Matrix Background -->
+<canvas id="matrix-bg"></canvas>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+    <div class="header-name">
+        <a href="../index.html" class="header-logo">
+            <h2>CASUAL</h2>
+            <img src="/images/assets/rotate.gif" alt="Casual Terrorist">
+            <h2>TERRORIST</h2>
+        </a>
+    </div>
+    <div class="header-right">
+        <div class="header-row-top">
+            <a href="./merch.html" class="navig-button">
+                <h1>Merch</h1>
+            </a>
+            <a href="./art.html" class="navig-button">
+                <h1>Animations</h1>
+            </a>
+            <a href="./video.html" class="navig-button">
+                <h1>Videos</h1>
+            </a>
+            <a href="./about.html" class="navig-button">
+                <h1>About</h1>
+            </a>
+        </div>
+        <div class="header-row-bottom">
+            <a href="bts.html" style="color: #fff;">
+                B.T.S.
+            </a>
+            <a href="contact.html">
+                Contact
+            </a>
+            <a href="commissions.html">
+                <img src="../images/assets/mail.png" alt="Email"> Commissions
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="bts-container">
+    <h1 class="bts-title">Behind The Scenes</h1>
+
+    <div class="bts-filters">
+        <div class="filter-group">
+            <span class="filter-label">Projects</span>
+            <select id="projectFilter" class="filter-dropdown">
+                <option value="all">All</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="active-filter-display" id="filterDisplay"></div>
+
+    <div id="btsContent">
+        <div class="bts-loading">Loading...</div>
+    </div>
+</div>
+
+<!-- Image Modal with gallery navigation -->
+<div id="btsModal" class="modal">
+    <div class="modal-content-bts">
+        <button class="close" onclick="closeBtsModal()">&times;</button>
+        <img id="btsModalImage" class="modal-bts-image" src="" alt="">
+
+        <!-- Gallery nav (only visible for multi-image items) -->
+        <div class="modal-gallery-nav" id="galleryNav" style="display: none;">
+            <button class="nav-arrow" id="galleryPrev" onclick="galleryStep(-1)">&#8249;</button>
+            <div class="modal-thumbnails" id="galleryThumbs"></div>
+            <button class="nav-arrow" id="galleryNext" onclick="galleryStep(1)">&#8250;</button>
+        </div>
+        <div class="modal-counter" id="galleryCounter"></div>
+
+        <div class="modal-bts-info">
+            <h2 id="btsModalTitle"></h2>
+            <div class="modal-technique" id="btsModalTechnique"></div>
+            <div class="modal-desc" id="btsModalDesc"></div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-name">
+        <a href="../index.html">
+            <img src="../images/assets/rotate.gif"  style="height: 100px;" alt="PFP">
+        </a>
+    </div>
+
+    <div class="footer-row-bottom">
+        <a href="mailto:rhilde1818@gmail.com">
+            <img src="../images/assets/mail.png" alt="Email"> Contact
+        </a>
+        <a href="https://www.instagram.com/casual.terrorist/">
+            <img src="../images/assets/insta.png" alt="Instagram"> Instagram
+        </a>
+        <a href="https://www.tiktok.com/@casual.terrorist?is_from_webapp=1&sender_device=pc">
+            <img src="../images/assets/tiktok.png" alt="TikTok"> TikTok
+        </a>
+        <a href="https://www.youtube.com/channel/UC4k2STj3XBi1BfdG-i7tC5Q">
+            <img src="../images/assets/youtube.png" alt="YouTube"> YouTube
+        </a>
+    </div>
+    <div class="footer-note">
+        All works are done without the use of AI
+    </div>
+</div>
+
+
+<script src="../script.js"></script>
+<script>
+    // ===== STATE =====
+    let btsData = {};
+    let activeProject = 'all';
+    let activeTechnique = 'all';
+    let currentGallery = [];
+    let currentGalleryIndex = 0;
+
+    // ===== PARSE MARKDOWN (supports multiple - image: lines per item) =====
+    function parseBtsMarkdown(md) {
+        const data = {};
+        let currentProject = null;
+        let currentItem = null;
+
+        for (const line of md.split('\n')) {
+            const t = line.trim();
+
+            if (t.startsWith('## ')) {
+                currentProject = t.replace('## ', '');
+                const key = currentProject.toLowerCase().replace(/\s+/g, '-');
+                data[key] = { title: currentProject, items: [] };
+                currentItem = null;
+            }
+            else if (t.startsWith('### ')) {
+                currentItem = {
+                    name: t.replace('### ', ''),
+                    images: [],
+                    technique: '',
+                    description: ''
+                };
+                if (currentProject) {
+                    const key = currentProject.toLowerCase().replace(/\s+/g, '-');
+                    currentItem.project = key;
+                    currentItem.projectTitle = currentProject;
+                    data[key].items.push(currentItem);
+                }
+            }
+            else if (t.startsWith('- ') && currentItem) {
+                const m = t.match(/^- ([\w_]+):\s*(.+)$/);
+                if (m) {
+                    const key = m[1];
+                    const val = m[2];
+                    if (key === 'image') {
+                        // Push every image line into the array
+                        currentItem.images.push(val);
+                    } else {
+                        currentItem[key] = val;
+                    }
+                }
+            }
+        }
+        return data;
+    }
+
+    // ===== BUILD PROJECT FILTER =====
+    function buildProjectFilter(data) {
+        const select = document.getElementById('projectFilter');
+        // Clear existing options except "All"
+        select.innerHTML = '<option value="all">All</option>';
+        for (const key of Object.keys(data)) {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = data[key].title;
+            select.appendChild(option);
+        }
+    }
+
+    // ===== GET FILTERED ITEMS =====
+    function getFilteredItems() {
+        let items = [];
+        for (const key of Object.keys(btsData)) {
+            if (activeProject !== 'all' && key !== activeProject) continue;
+            for (const item of btsData[key].items) {
+                items.push({ ...item });
+            }
+        }
+        return items;
+    }
+
+    // ===== RENDER =====
+    function renderBts() {
+        const container = document.getElementById('btsContent');
+        const items = getFilteredItems();
+
+        // Update filter display
+        const display = document.getElementById('filterDisplay');
+        const parts = [];
+        if (activeProject !== 'all') {
+            parts.push('<span>' + (btsData[activeProject]?.title || activeProject) + '</span>');
+        }
+        display.innerHTML = parts.length ? 'Showing: ' + parts.join(' + ') : '';
+
+        container.innerHTML = '';
+
+        if (items.length === 0) {
+            container.innerHTML = '<div class="bts-empty">No images match these filters.</div>';
+            return;
+        }
+
+        // Group by project
+        const grouped = {};
+        for (const item of items) {
+            if (!grouped[item.project]) {
+                grouped[item.project] = { title: item.projectTitle, items: [] };
+            }
+            grouped[item.project].items.push(item);
+        }
+
+        for (const key of Object.keys(grouped)) {
+            const group = grouped[key];
+
+            const title = document.createElement('h2');
+            title.className = 'bts-section-title';
+            title.textContent = group.title;
+            container.appendChild(title);
+
+            const grid = document.createElement('div');
+            grid.className = 'bts-grid';
+
+            for (const item of group.items) {
+                const coverImage = item.images[0] || '';
+                const isMulti = item.images.length > 1;
+
+                const card = document.createElement('div');
+                card.className = 'bts-card';
+                card.onclick = () => openBtsModal(item, 0);
+
+                card.innerHTML = `
+                    <div class="card-img">
+                        <img src="${coverImage}" alt="${item.name}"
+                             onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\\'placeholder\\'>Image Pending</span>';">
+                    </div>
+                    ${isMulti ? '<div class="multi-badge">' + item.images.length + ' images</div>' : ''}
+                    <div class="card-caption">
+                        <div class="caption-name">${item.name}</div>
+                        <div class="caption-technique">${item.technique}</div>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            }
+
+            container.appendChild(grid);
+        }
+    }
+
+    // ===== MODAL WITH GALLERY =====
+    function openBtsModal(item, startIndex) {
+        currentGallery = item.images;
+        currentGalleryIndex = startIndex || 0;
+
+        const modal = document.getElementById('btsModal');
+        document.getElementById('btsModalTitle').textContent = item.name;
+        document.getElementById('btsModalTechnique').textContent = item.technique;
+        document.getElementById('btsModalDesc').textContent = item.description;
+
+        // Show/hide gallery nav
+        const galleryNav = document.getElementById('galleryNav');
+        const counter = document.getElementById('galleryCounter');
+
+        if (currentGallery.length > 1) {
+            galleryNav.style.display = 'flex';
+            buildThumbnails();
+        } else {
+            galleryNav.style.display = 'none';
+            counter.textContent = '';
+        }
+
+        updateGalleryImage();
+
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => { modal.style.opacity = '1'; }, 10);
+    }
+
+    function buildThumbnails() {
+        const container = document.getElementById('galleryThumbs');
+        container.innerHTML = '';
+        for (let i = 0; i < currentGallery.length; i++) {
+            const thumb = document.createElement('div');
+            thumb.className = 'thumb' + (i === currentGalleryIndex ? ' active' : '');
+            thumb.onclick = (e) => {
+                e.stopPropagation();
+                currentGalleryIndex = i;
+                updateGalleryImage();
+            };
+            thumb.innerHTML = `<img src="${currentGallery[i]}" alt="Thumbnail ${i + 1}">`;
+            container.appendChild(thumb);
+        }
+    }
+
+    function updateGalleryImage() {
+        const img = document.getElementById('btsModalImage');
+        img.src = currentGallery[currentGalleryIndex];
+
+        // Update counter
+        const counter = document.getElementById('galleryCounter');
+        if (currentGallery.length > 1) {
+            counter.textContent = (currentGalleryIndex + 1) + ' / ' + currentGallery.length;
+        } else {
+            counter.textContent = '';
+        }
+
+        // Update active thumbnail
+        const thumbs = document.querySelectorAll('#galleryThumbs .thumb');
+        thumbs.forEach((t, i) => {
+            t.classList.toggle('active', i === currentGalleryIndex);
+        });
+    }
+
+    function galleryStep(dir) {
+        currentGalleryIndex += dir;
+        if (currentGalleryIndex < 0) currentGalleryIndex = currentGallery.length - 1;
+        if (currentGalleryIndex >= currentGallery.length) currentGalleryIndex = 0;
+        updateGalleryImage();
+    }
+
+    function closeBtsModal() {
+        const modal = document.getElementById('btsModal');
+        modal.style.opacity = '0';
+        currentGallery = [];
+        currentGalleryIndex = 0;
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('btsModal')) closeBtsModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeBtsModal();
+        // Arrow key navigation when modal is open
+        if (currentGallery.length > 1) {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                galleryStep(1);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                galleryStep(-1);
+            }
+        }
+    });
+
+    // ===== FILTER CLICKS =====
+    document.getElementById('projectFilter').addEventListener('change', (e) => {
+        activeProject = e.target.value;
+        renderBts();
+    });
+
+    // ===== LOAD =====
+    async function loadBts() {
+        try {
+            const response = await fetch('../data/bts.md');
+            if (!response.ok) throw new Error('Failed to load bts.md');
+            const text = await response.text();
+            btsData = parseBtsMarkdown(text);
+            buildProjectFilter(btsData);
+            renderBts();
+        } catch (err) {
+            console.error('Error loading BTS data:', err);
+            document.getElementById('btsContent').innerHTML =
+                '<div class="bts-loading">Error loading behind the scenes.</div>';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadBts);
+</script>
+
+</body>
+</html>

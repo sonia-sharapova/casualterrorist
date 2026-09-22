@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ryanw0rld</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Clean Gallery Grid Styles */
+
+
+    .year-filter {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 60px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 20px;
+    }
+
+    .year-filter button {
+      background: none;
+      border: none;
+      color: #999;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 10px 0;
+      font-family: 'Times New Roman', serif;
+      transition: color 0.3s ease;
+    }
+
+    .year-filter button.active,
+    .year-filter button:hover {
+      color: #333;
+      border-bottom: 2px solid #333;
+    }
+
+    .art-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .art-item {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .art-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .art-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .art-item-info {
+      padding: 15px 0;
+      text-align: left;
+    }
+
+    .art-title {
+      font-size: 1rem;
+      font-weight: normal;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .art-year {
+      font-size: 0.9rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* Modal Styles */
+
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .art-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+      }
+
+      .container {
+        padding: 40px 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .art-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .container {
+        padding: 30px 20px;
+      }
+
+      .year-filter {
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+    }
+
+    @media (max-width: 480px) {
+      .art-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .container {
+        padding: 20px 15px;
+      }
+
+      .year-filter {
+        gap: 15px;
+      }
+
+      .art-item img {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Matrix Background (disabled for clean look) -->
+<canvas id="matrix-bg"></canvas>
+
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <!-- Left: Name/logo images -->
+  <div class="header-name">
+    <a href="../index.html" class="header-logo">
+      <h2>CASUAL</h2>
+      <img src="/images/assets/rotate.gif" alt="Casual Terrorist">
+      <h2>TERRORIST</h2>
+    </a>
+  </div>
+
+  <!-- Right: Nav on top, socials on bottom -->
+  <div class="header-right">
+    <div class="header-row-top">
+      <a href="./merch.html" class="navig-button">
+        <h1>Merch</h1>
+      </a>
+      <a href="./art.html" class="navig-button">
+        <h1 style="color: #000000; background-color: rgb(255,255,255);">Animations</h1>
+      </a>
+      <a href="./video.html" class="navig-button">
+        <h1>Videos</h1>
+      </a>
+      <a href="./about.html" class="navig-button" style="">
+        <h1>About</h1>
+      </a>
+    </div>
+
+    <div class="header-row-bottom">
+      <a href="bts.html">
+        B.T.S.
+      </a>
+      <a href="contact.html">
+        Contact
+      </a>
+      <a href="commissions.html">
+        <img src="../images/assets/mail.png" alt="Email"> Commissions
+      </a>
+    </div>
+  </div>
+</div>
+<!-- ===== END HEADER ===== -->
+
+<div class="container">
+  <div class="year-filter">
+    <button class="year-btn active" data-year="all">All</button>
+    <button class="year-btn" data-year="2025">2025</button>
+    <button class="year-btn" data-year="2024">2024</button>
+    <button class="year-btn" data-year="2023">2023</button>
+    <button class="year-btn" data-year="2022">2022</button>
+    <button class="year-btn" data-year="2021">2021</button>
+    <button class="year-btn" data-year="2020">2020</button>
+    <button class="year-btn" data-year="2019">2019</button>
+  </div>
+
+  <div class="art-grid">
+    <div class="art-item" data-year="2024" onclick="openArtModal('/images/artAssets/art_unscaled/Cowboy.jpg', 'Digital Cowboy', '2024')">
+      <img src="/images/artAssets/art/Cowboy.jpg" alt="Digital Cowboy">
+      <div class="art-item-info">
+        <div class="art-title">Digital Cowboy</div>
+        <div class="art-year">2024</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2024" onclick="openArtModal('/images/artAssets/art_unscaled/CoyoteRoadCig.jpg', 'Coyote Road', '2024')">
+      <img src="/images/artAssets/art/CoyoteRoadCig.jpg" alt="Coyote Road">
+      <div class="art-item-info">
+        <div class="art-title">Coyote Road</div>
+        <div class="art-year">2024</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2024" onclick="openArtModal('/images/artAssets/art/crocCar.jpeg', 'Croc Car', '2024')">
+      <img src="/images/artAssets/art/crocCar.jpeg" alt="Croc Car">
+      <div class="art-item-info">
+        <div class="art-title">Croc Car</div>
+        <div class="art-year">2024</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2024" onclick="openArtModal('/images/artAssets/art/Woods.png', 'Woods', '2024')">
+      <img src="/images/artAssets/art/Woods.png" alt="Woods">
+      <div class="art-item-info">
+        <div class="art-title">Woods</div>
+        <div class="art-year">2024</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2023" onclick="openArtModal('/images/artAssets/art/G0d.jpg', 'G0d', '2023')">
+      <img src="/images/artAssets/art/G0d.jpg" alt="G0d">
+      <div class="art-item-info">
+        <div class="art-title">G0d</div>
+        <div class="art-year">2023</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2023" onclick="openArtModal('/images/artAssets/art/AlleyBeau.png', 'Alley Beauty', '2023')">
+      <img src="/images/artAssets/art/AlleyBeau.png" alt="Alley Beauty">
+      <div class="art-item-info">
+        <div class="art-title">Alley Beauty</div>
+        <div class="art-year">2023</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2023" onclick="openArtModal('/images/artAssets/art/Motorcycle.png', 'Motorcycle', '2023')">
+      <img src="/images/artAssets/art/Motorcycle.png" alt="Motorcycle">
+      <div class="art-item-info">
+        <div class="art-title">Motorcycle</div>
+        <div class="art-year">2023</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2023" onclick="openArtModal('/images/artAssets/art/mainman.png', 'Main Man', '2023')">
+      <img src="/images/artAssets/art/mainman.png" alt="Main Man">
+      <div class="art-item-info">
+        <div class="art-title">Main Man</div>
+        <div class="art-year">2023</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2022" onclick="openArtModal('/images/artAssets/art/HarryV.jpg', 'Harry V', '2022')">
+      <img src="/images/artAssets/art/HarryV.jpg" alt="Harry V">
+      <div class="art-item-info">
+        <div class="art-title">Harry V</div>
+        <div class="art-year">2022</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2022" onclick="openArtModal('/images/artAssets/art/MoonHouse.png', 'Moon House', '2022')">
+      <img src="/images/artAssets/art/MoonHouse.png" alt="Moon House">
+      <div class="art-item-info">
+        <div class="art-title">Moon House</div>
+        <div class="art-year">2022</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2022" onclick="openArtModal('/images/artAssets/art/WasherCvr.jpg', 'Washer Cover', '2022')">
+      <img src="/images/artAssets/art/WasherCvr.jpg" alt="Washer Cover">
+      <div class="art-item-info">
+        <div class="art-title">Washer Cover</div>
+        <div class="art-year">2022</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2021" onclick="openArtModal('/images/artAssets/art/GREMLINGENTLEMEN%20invert%20HDR.jpg', 'Gremlin Gentlemen', '2021')">
+      <img src="/images/artAssets/art/GREMLINGENTLEMEN%20invert%20HDR.jpg" alt="Gremlin Gentlemen">
+      <div class="art-item-info">
+        <div class="art-title">Gremlin Gentlemen</div>
+        <div class="art-year">2021</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2021" onclick="openArtModal('/images/artAssets/art/cityscape_red.jpeg', 'Red Cityscape', '2021')">
+      <img src="/images/artAssets/art/cityscape_red.jpeg" alt="Red Cityscape">
+      <div class="art-item-info">
+        <div class="art-title">Red Cityscape</div>
+        <div class="art-year">2021</div>
+      </div>
+    </div>
+
+    <div class="art-item" data-year="2020" onclick="openArtModal('/images/artAssets/art/campsite.png', 'Campsite', '2025')">
+      <img src="/images/artAssets/art/campsite.png" alt="Campsite">
+      <div class="art-item-info">
+        <div class="art-title">Campsite</div>
+        <div class="art-year">2020</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Art Modal -->
+<div id="artModal" class="modal">
+  <div class="modal-content-art">
+    <button class="close" onclick="closeArtModal()">&times;</button>
+    <img id="modalArtImage" class="modal-art-image" src="" alt="">
+    <div class="modal-art-info">
+      <h2 id="modalArtTitle" class="modal-art-title"></h2>
+      <div id="modalArtYear" class="modal-art-year"></div>
+    </div>
+  </div>
+</div>
+
+<script src="../script.js"></script>
+<script>
+  // Year filter functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const yearButtons = document.querySelectorAll('.year-btn');
+    const artItems = document.querySelectorAll('.art-item');
+
+    yearButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const selectedYear = this.getAttribute('data-year');
+
+        // Update active button
+        yearButtons.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+
+        // Filter art items
+        artItems.forEach(item => {
+          const itemYear = item.getAttribute('data-year');
+          if (selectedYear === 'all' || itemYear === selectedYear) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  });
+
+  // Modal functionality with navigation support
+  function openArtModal(imageSrc, title, year) {
+    const modal = document.getElementById('artModal');
+    const modalImage = document.getElementById('modalArtImage');
+    const modalTitle = document.getElementById('modalArtTitle');
+    const modalYear = document.getElementById('modalArtYear');
+
+    modalImage.src = imageSrc;
+    modalTitle.textContent = title;
+    modalYear.textContent = year;
+
+    // Find current image index
+    updateArtItemsArray();
+    currentImageIndex = allArtItems.findIndex(item => {
+      const img = item.querySelector('img');
+      return img.src.includes(imageSrc.split('/').pop());
+    });
+
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+
+    setTimeout(() => {
+      modal.style.opacity = '1';
+    }, 10);
+  }
+
+  function closeArtModal() {
+    const modal = document.getElementById('artModal');
+
+    modal.style.opacity = '0';
+    setTimeout(() => {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }, 300);
+  }
+
+  // Global variables for navigation
+  let currentImageIndex = 0;
+  let allArtItems = [];
+
+  // Initialize art items array when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    // Collect all visible art items
+    updateArtItemsArray();
+
+    // Re-update when filters change
+    const yearButtons = document.querySelectorAll('.year-btn');
+    yearButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        setTimeout(updateArtItemsArray, 100); // Wait for filter to apply
+      });
+    });
+  });
+
+  function updateArtItemsArray() {
+    allArtItems = Array.from(document.querySelectorAll('.art-item')).filter(item => {
+      return item.style.display !== 'none';
+    });
+  }
+
+  function navigateModal(direction) {
+    if (allArtItems.length === 0) return;
+
+    if (direction === 'next') {
+      currentImageIndex = (currentImageIndex + 1) % allArtItems.length;
+    } else if (direction === 'prev') {
+      currentImageIndex = (currentImageIndex - 1 + allArtItems.length) % allArtItems.length;
+    }
+
+    // Get the data from the current art item
+    const currentItem = allArtItems[currentImageIndex];
+    const img = currentItem.querySelector('img');
+    const title = currentItem.querySelector('.art-title').textContent;
+    const year = currentItem.querySelector('.art-year').textContent;
+
+    // Update modal content
+    const modalImage = document.getElementById('modalArtImage');
+    const modalTitle = document.getElementById('modalArtTitle');
+    const modalYear = document.getElementById('modalArtYear');
+
+    modalImage.src = img.src;
+    modalTitle.textContent = title;
+    modalYear.textContent = year;
+  }
+
+  // Close modal when clicking outside the image
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('artModal');
+    const modalImage = document.getElementById('modalArtImage');
+
+    if (event.target === modal && event.target !== modalImage) {
+      closeArtModal();
+    }
+  });
+
+  // Enhanced keyboard navigation
+  document.addEventListener('keydown', function(event) {
+    const modal = document.getElementById('artModal');
+
+    if (modal.style.display === 'block') {
+      switch(event.key) {
+        case 'Escape':
+          closeArtModal();
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          navigateModal('next');
+          break;
+        case 'ArrowLeft':
+          event.preventDefault();
+          navigateModal('prev');
+          break;
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

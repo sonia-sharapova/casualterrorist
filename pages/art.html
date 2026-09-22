@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ryanw0rld</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../styles/art.css">
+</head>
+<body>
+<!-- Matrix Background -->
+<canvas id="matrix-bg"></canvas>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <!-- Left: Name/logo images -->
+  <div class="header-name">
+    <a href="../index.html" class="header-logo">
+      <h2>CASUAL</h2>
+      <img src="/images/assets/rotate.gif" alt="Casual Terrorist">
+      <h2>TERRORIST</h2>
+    </a>
+  </div>
+
+  <!-- Right: Nav on top, socials on bottom -->
+  <div class="header-right">
+    <div class="header-row-top">
+      <a href="./merch.html" class="navig-button">
+        <h1>Merch</h1>
+      </a>
+      <a href="./art.html" class="navig-button">
+        <h1 style="color: #000000; background-color: rgb(255,255,255);">Animations</h1>
+      </a>
+      <a href="./video.html" class="navig-button">
+        <h1>Videos</h1>
+      </a>
+      <a href="./about.html" class="navig-button">
+        <h1>About</h1>
+      </a>
+    </div>
+
+    <div class="header-row-bottom">
+      <a href="bts.html">
+        B.T.S.
+      </a>
+      <a href="contact.html">
+        Contact
+      </a>
+      <a href="commissions.html">
+        <img src="../images/assets/mail.png" alt="Email"> Commissions
+      </a>
+    </div>
+  </div>
+</div>
+<!-- ===== END HEADER ===== -->
+
+<div class="container">
+  <div class="art-gallery" id="artGallery">
+    <div class="description">
+      <h1>Art</h1>
+      Animations
+    </div>
+    <div class="merch-loading">Loading animations...</div>
+  </div>
+</div>
+
+<!-- Art Modal -->
+<div id="artModal" class="modal">
+  <div class="modal-content-art">
+    <span class="close" onclick="closeArtModal()">&times;</span>
+    <img id="modalArtImage" class="modal-art-image" src="" alt="">
+    <div class="art-info">
+      <h2 id="modalArtTitle" class="art-title"></h2>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-name">
+    <a href="../index.html">
+      <img src="../images/assets/rotate.gif"  style="height: 100px;" alt="PFP">
+    </a>
+  </div>
+
+  <div class="footer-row-bottom">
+    <a href="mailto:rhilde1818@gmail.com">
+      <img src="../images/assets/mail.png" alt="Email"> Contact
+    </a>
+    <a href="https://www.instagram.com/casual.terrorist/">
+      <img src="../images/assets/insta.png" alt="Instagram"> Instagram
+    </a>
+    <a href="https://www.tiktok.com/@casual.terrorist?is_from_webapp=1&sender_device=pc">
+      <img src="../images/assets/tiktok.png" alt="TikTok"> TikTok
+    </a>
+    <a href="https://www.youtube.com/channel/UC4k2STj3XBi1BfdG-i7tC5Q">
+      <img src="../images/assets/youtube.png" alt="YouTube"> YouTube
+    </a>
+  </div>
+  <div class="footer-note">
+    All works are done without the use of AI
+  </div>
+</div>
+
+
+<script src="../script.js"></script>
+<script src="../scripts/art.js"></script>
+<script>
+  // Parse animations.md into structured row data
+  function parseAnimationsMarkdown(md) {
+    const rows = [];
+    let currentRow = null;
+    let currentItem = null;
+
+    const lines = md.split('\n');
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+
+      // Row header (## Row 1, ## Row 2, etc.)
+      if (trimmed.startsWith('## ') && !trimmed.startsWith('###')) {
+        currentRow = { title: trimmed.replace('## ', ''), items: [] };
+        rows.push(currentRow);
+        currentItem = null;
+      }
+      // Item header (### Item Name)
+      else if (trimmed.startsWith('### ')) {
+        const name = trimmed.replace('### ', '');
+        currentItem = { name: name, image: '', alt: '', clickable: true };
+        if (currentRow) {
+          currentRow.items.push(currentItem);
+        }
+      }
+      // Item properties (- key: value)
+      else if (trimmed.startsWith('- ') && currentItem) {
+        const match = trimmed.match(/^- (\w+):\s*(.+)$/);
+        if (match) {
+          const key = match[1];
+          const value = match[2];
+          if (key === 'clickable') {
+            currentItem.clickable = value.toLowerCase() !== 'false';
+          } else {
+            currentItem[key] = value;
+          }
+        }
+      }
+    }
+
+    return rows;
+  }
+
+  // Render the gallery from parsed data
+  function renderAnimations(rows) {
+    const gallery = document.getElementById('artGallery');
+    gallery.innerHTML = '';
+
+    for (const row of rows) {
+      const rowEl = document.createElement('div');
+      rowEl.className = 'art-row';
+
+      for (const item of row.items) {
+        const itemEl = document.createElement('div');
+        itemEl.className = 'art-item';
+
+        if (item.clickable) {
+          itemEl.onclick = () => openArtModal(item.image, item.name);
+        }
+
+        const img = document.createElement('img');
+        img.src = item.image;
+        img.alt = item.alt || item.name;
+
+        itemEl.appendChild(img);
+        rowEl.appendChild(itemEl);
+      }
+
+      gallery.appendChild(rowEl);
+    }
+  }
+
+  // Fetch and parse animations.md on load
+  async function loadAnimations() {
+    try {
+      const response = await fetch('../data/animations.md');
+      if (!response.ok) throw new Error('Failed to load animations.md');
+      const text = await response.text();
+      const rows = parseAnimationsMarkdown(text);
+      renderAnimations(rows);
+    } catch (err) {
+      console.error('Error loading animations data:', err);
+      document.getElementById('artGallery').innerHTML =
+              '<div class="merch-loading">Error loading animations. Please try again.</div>';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadAnimations);
+</script>
+
+</body>
+</html>

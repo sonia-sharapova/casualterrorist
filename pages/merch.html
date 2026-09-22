@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ryanw0rld - Merch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../styles/merch.css">
+</head>
+<body>
+<!-- Matrix Background -->
+<canvas id="matrix-bg"></canvas>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+    <div class="header-name">
+        <a href="../index.html" class="header-logo">
+            <h2>CASUAL</h2>
+            <img src="/images/assets/rotate.gif" alt="Casual Terrorist">
+            <h2>TERRORIST</h2>
+        </a>
+    </div>
+    <div class="header-right">
+        <div class="header-row-top">
+            <a href="./merch.html" class="navig-button">
+                <h1 style="color: #000000; background-color: rgb(255,255,255);">Merch</h1>
+            </a>
+            <a href="./art.html" class="navig-button">
+                <h1>Animations</h1>
+            </a>
+            <a href="./video.html" class="navig-button">
+                <h1>Videos</h1>
+            </a>
+            <a href="./about.html" class="navig-button">
+                <h1>About</h1>
+            </a>
+        </div>
+        <div class="header-row-bottom">
+            <a href="bts.html">
+                B.T.S.
+            </a>
+            <a href="contact.html">
+                Contact
+            </a>
+            <a href="commissions.html">
+                <img src="../images/assets/mail.png" alt="Email"> Commissions
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Search Bar -->
+<div class="merch-search-bar">
+    <input type="text" id="merchSearch" placeholder="Search merch..." autocomplete="off">
+    <span class="merch-search-results-count" id="searchCount"></span>
+</div>
+
+<!-- Category Sub-Nav -->
+<nav class="merch-nav" id="merchNav">
+    <a href="#" data-category="all" class="active">All</a>
+    <a href="#" data-category="mens">Mens</a>
+    <a href="#" data-category="womens">Womens</a>
+    <a href="#" data-category="posters">Posters</a>
+    <a href="#" data-category="accessories">Accessories</a>
+</nav>
+
+<!-- Cart Toggle Button -->
+<div class="cart-toggle" id="cartToggle" onclick="toggleCart()">
+    &#128722; Cart <span class="cart-count empty" id="cartCount">0</span>
+</div>
+
+<!-- Cart Overlay -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<!-- Cart Sidebar -->
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <h2>Your Cart</h2>
+        <button class="cart-close" onclick="toggleCart()">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+        <div class="cart-empty">Your cart is empty</div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display: none;">
+        <div class="cart-total">
+            <span class="cart-total-label">Total</span>
+            <span class="cart-total-amount" id="cartTotal">$0</span>
+        </div>
+        <a href="https://queezey.threadless.com" target="_blank" class="cart-checkout-btn" id="checkoutBtn">
+            Checkout on Threadless
+        </a>
+        <div class="cart-threadless-note">
+            Orders fulfilled by Threadless Artist Shops
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="merch-container" id="merchContainer">
+  <div class="merch-grid">
+
+    <div class="merch-item" onclick="openMerchModal('shirt2')">
+      <div class="item-card">
+        <img src="/images/clothes/HeartInThroat.png" alt="Heart In Throat Design">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Heart In Throat</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt11')">
+      <div class="item-card">
+        <img src="/images/clothes/Tiger.png" alt="Tiger Power Design">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Tiger Power</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt10')">
+      <div class="item-card">
+        <img src="/images/clothes/Skeleton.png" alt="Skeleton Art Design">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Skeleton Art</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt6')">
+      <div class="item-card">
+        <img src="/images/clothes/CityMonk.png" alt="City Monk Design">
+      </div>
+      <div class="item-info">
+        <span class="item-name">City Monk</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt8')">
+      <div class="item-card">
+        <img src="/images/clothes/Gun.png" alt="Gun Art Design">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Gun Art</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt7')">
+      <div class="item-card">
+        <img src="/images/clothes/Mermaid.png" alt="Mermaid Fantasy Tee">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Mermaid Fantasy</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt1')">
+      <div class="item-card">
+        <img src="/images/clothes/Safari.png" alt="Safari T-Shirt">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Safari</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt9')">
+      <div class="item-card">
+        <img src="/images/clothes/Clown.png" alt="Clown Portrait Tee">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Clown Portrait</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt5')">
+      <div class="item-card">
+        <img src="/images/clothes/WesternWorm.png" alt="Western Worm Graphic">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Western Worm</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt3')">
+      <div class="item-card">
+        <img src="/images/clothes/Dragon.png" alt="Dragon Art Tee">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Dragon Art</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt4')">
+      <div class="item-card">
+        <img src="/images/clothes/Spider.png" alt="Spider Web Design">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Spider Web</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+    <div class="merch-item" onclick="openMerchModal('shirt12')">
+      <div class="item-card">
+        <img src="/images/clothes/OldTimeySmoker.png" alt="Old Timey Smoker">
+      </div>
+      <div class="item-info">
+        <span class="item-name">Old Timey Smoker</span>
+        <span class="item-price">$35</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Product Modal -->
+<div id="merchModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeMerchModal()">&times;</span>
+        <img id="modalImage" class="modal-image" src="" alt="">
+        <div class="modal-info">
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <p id="modalPrice" class="modal-price"></p>
+            <p id="modalDescription" class="modal-description"></p>
+            <p id="modalSizes" class="modal-sizes"></p>
+            <p class="coming-soon">Coming Soon</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-name">
+        <a href="../index.html">
+            <img src="../images/assets/rotate.gif"  style="height: 100px;" alt="PFP">
+        </a>
+    </div>
+
+    <div class="footer-row-bottom">
+        <a href="mailto:rhilde1818@gmail.com">
+            <img src="../images/assets/mail.png" alt="Email"> Contact
+        </a>
+        <a href="https://www.instagram.com/casual.terrorist/">
+            <img src="../images/assets/insta.png" alt="Instagram"> Instagram
+        </a>
+        <a href="https://www.tiktok.com/@casual.terrorist?is_from_webapp=1&sender_device=pc">
+            <img src="../images/assets/tiktok.png" alt="TikTok"> TikTok
+        </a>
+        <a href="https://www.youtube.com/channel/UC4k2STj3XBi1BfdG-i7tC5Q">
+            <img src="../images/assets/youtube.png" alt="YouTube"> YouTube
+        </a>
+    </div>
+    <div class="footer-note">
+        All works are done without the use of AI
+    </div>
+</div>
+
+
+<script src="../script.js"></script>
+<script>
+// Merch data
+const merchData = {
+    shirt1: {
+        image: '/images/clothes/Safari.png',
+        title: 'Safari T-Shirt',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Safari design on tee.'
+    },
+    shirt2: {
+        image: '/images/clothes/HeartInThroat.png',
+        title: 'Heart In Throat Design',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Hand-drawn heart design on heavyweight cotton tee'
+    },
+    shirt3: {
+        image: '/images/clothes/Dragon.png',
+        title: 'Dragon Art Tee',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Dragon art on tee'
+    },
+    shirt4: {
+        image: '/images/clothes/Spider.png',
+        title: 'Spider Web Design',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Spider web design'
+    },
+    shirt5: {
+        image: '/images/clothes/WesternWorm.png',
+        title: 'Western Worm Graphic',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Western worm graphic'
+    },
+    shirt6: {
+        image: '/images/clothes/CityMonk.png',
+        title: 'City Monk Design',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Airbrush - Urban monk collage on heavyweight cotton tee'
+    },
+    shirt7: {
+        image: '/images/clothes/Mermaid.png',
+        title: 'Mermaid Fantasy Tee',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Airbrush mermaid'
+    },
+    shirt8: {
+        image: '/images/clothes/Gun.png',
+        title: 'Gun Art Design',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Airbrush gun art'
+    },
+    shirt9: {
+        image: '/images/clothes/Clown.png',
+        title: 'Clown Portrait Tee',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Clown portrait'
+    },
+    shirt10: {
+        image: '/images/clothes/Skeleton.png',
+        title: 'Skeleton Art Design',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Airbrushed ribcage'
+    },
+    shirt11: {
+        image: '/images/clothes/Tiger.png',
+        title: 'Tiger Power Design',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Airbrushed tiger illustration on black tee'
+    },
+    shirt12: {
+        image: '/images/clothes/OldTimeySmoker.png',
+        title: 'Old Timey Smoker',
+        price: '$35',
+        sizes: 'Sizes: S, M, L, XL, 2XL',
+        description: 'Old timey smoker design'
+    }
+};
+
+function openMerchModal(itemId) {
+    const modal = document.getElementById('merchModal');
+    const item = merchData[itemId];
+
+    if (item) {
+        document.getElementById('modalImage').src = item.image;
+        document.getElementById('modalTitle').textContent = item.title;
+        document.getElementById('modalPrice').textContent = item.price;
+        document.getElementById('modalDescription').textContent = item.description;
+        document.getElementById('modalSizes').textContent = item.sizes;
+
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+
+        setTimeout(() => {
+            modal.style.opacity = '1';
+        }, 10);
+    }
+}
+
+function closeMerchModal() {
+    const modal = document.getElementById('merchModal');
+    modal.style.opacity = '0';
+
+    setTimeout(() => {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }, 300);
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Close modal when clicking outside
+    const modal = document.getElementById('merchModal');
+    if (modal) {
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeMerchModal();
+            }
+        });
+    }
+
+    // Close modal with escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            const modal = document.getElementById('merchModal');
+            if (modal && modal.style.display === 'flex') {
+                closeMerchModal();
+            }
+        }
+    });
+});
+</script>
+<script>
+    // ===== STATE =====
+    let merchData = {};
+    let allItems = [];
+    let activeCategory = 'all';
+    let searchQuery = '';
+    let cart = [];
+    let currentModalItem = null;
+
+    // Load cart from localStorage
+    try {
+        const saved = localStorage.getItem('casualTerroristCart');
+        if (saved) cart = JSON.parse(saved);
+    } catch (e) {}
+
+    // ===== MARKDOWN PARSER =====
+    function parseMerchMarkdown(md) {
+        const data = {};
+        let currentCategory = null;
+        let currentItem = null;
+
+        for (const line of md.split('\n')) {
+            const t = line.trim();
+            if (t.startsWith('## ') && !t.startsWith('###')) {
+                currentCategory = t.replace('## ', '');
+                const key = currentCategory.toLowerCase().replace(/\s+/g, '-');
+                data[key] = { title: currentCategory, items: [] };
+                currentItem = null;
+            } else if (t.startsWith('### ')) {
+                currentItem = {
+                    name: t.replace('### ', ''),
+                    id: '', image: '', price: '', sizes: '', description: '',
+                    threadless_url: ''
+                };
+                if (currentCategory) {
+                    const key = currentCategory.toLowerCase().replace(/\s+/g, '-');
+                    currentItem.category = key;
+                    currentItem.categoryTitle = currentCategory;
+                    data[key].items.push(currentItem);
+                }
+            } else if (t.startsWith('- ') && currentItem) {
+                const m = t.match(/^- ([\w_]+):\s*(.+)$/);
+                if (m) currentItem[m[1]] = m[2];
+            }
+        }
+        return data;
+    }
+
+    // ===== RENDERING =====
+    function getFilteredItems() {
+        let items = [];
+        const categories = Object.keys(merchData);
+
+        for (const catKey of categories) {
+            if (activeCategory !== 'all' && catKey !== activeCategory) continue;
+            for (const item of merchData[catKey].items) {
+                items.push({ ...item, categoryKey: catKey, categoryTitle: merchData[catKey].title });
+            }
+        }
+
+        if (searchQuery) {
+            const q = searchQuery.toLowerCase();
+            items = items.filter(item =>
+                item.name.toLowerCase().includes(q) ||
+                item.description.toLowerCase().includes(q) ||
+                item.categoryTitle.toLowerCase().includes(q)
+            );
+        }
+
+        return items;
+    }
+
+    function renderMerch() {
+        const container = document.getElementById('merchContainer');
+        const items = getFilteredItems();
+
+        // Update search count
+        const countEl = document.getElementById('searchCount');
+        if (searchQuery) {
+            countEl.textContent = items.length + ' result' + (items.length !== 1 ? 's' : '');
+        } else {
+            countEl.textContent = '';
+        }
+
+        container.innerHTML = '';
+
+        if (items.length === 0) {
+            container.innerHTML = '<div class="merch-loading">No items found.</div>';
+            return;
+        }
+
+        // Group by category
+        const grouped = {};
+        for (const item of items) {
+            if (!grouped[item.categoryKey]) {
+                grouped[item.categoryKey] = { title: item.categoryTitle, items: [] };
+            }
+            grouped[item.categoryKey].items.push(item);
+        }
+
+        for (const catKey of Object.keys(grouped)) {
+            const cat = grouped[catKey];
+
+            const title = document.createElement('h2');
+            title.className = 'merch-section-title';
+            title.textContent = cat.title;
+            container.appendChild(title);
+
+            const grid = document.createElement('div');
+            grid.className = 'merch-grid';
+
+            for (const item of cat.items) {
+                const el = document.createElement('div');
+                el.className = 'merch-item';
+                el.onclick = (e) => {
+                    if (e.target.closest('.quick-add')) return;
+                    openMerchModal(item);
+                };
+
+                el.innerHTML = `
+          <div class="item-card">
+            <img src="${item.image}" alt="${item.name}">
+            <div class="quick-add" onclick="event.stopPropagation(); addToCart(${JSON.stringify(item).replace(/"/g, '&quot;')})">
+              + Add to Cart
+            </div>
+          </div>
+          <div class="item-info">
+            <span class="item-name">${item.name}</span>
+            <span class="item-price">${item.price}</span>
+          </div>
+          <div class="item-sizes">${item.sizes || ''}</div>
+          ${item.threadless_url ? `<div class="item-threadless"><a href="${item.threadless_url}" target="_blank" onclick="event.stopPropagation();">View on Threadless &rarr;</a></div>` : ''}
+        `;
+
+                grid.appendChild(el);
+            }
+
+            container.appendChild(grid);
+        }
+
+        const footer = document.createElement('div');
+        footer.className = 'merch-footer';
+        footer.textContent = 'Commissions open.';
+        container.appendChild(footer);
+    }
+
+    // ===== MODAL =====
+    function openMerchModal(item) {
+        currentModalItem = item;
+        const modal = document.getElementById('merchModal');
+        document.getElementById('modalImage').src = item.image;
+        document.getElementById('modalImage').alt = item.name;
+        document.getElementById('modalTitle').textContent = item.name;
+        document.getElementById('modalPrice').textContent = item.price;
+        document.getElementById('modalDescription').textContent = item.description;
+        document.getElementById('modalSizes').textContent = item.sizes ? 'Sizes: ' + item.sizes : '';
+
+        const threadlessLink = document.getElementById('modalThreadlessLink');
+        if (item.threadless_url) {
+            threadlessLink.href = item.threadless_url;
+            threadlessLink.style.display = 'inline-block';
+        } else {
+            threadlessLink.style.display = 'none';
+        }
+
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => { modal.style.opacity = '1'; }, 10);
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('merchModal');
+        modal.style.opacity = '0';
+        currentModalItem = null;
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    function addToCartFromModal() {
+        if (currentModalItem) {
+            addToCart(currentModalItem);
+        }
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('merchModal')) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeModal();
+            if (document.getElementById('cartSidebar').classList.contains('open')) toggleCart();
+        }
+    });
+
+    // ===== CART =====
+    function addToCart(item) {
+        const existing = cart.find(c => c.id === item.id);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            cart.push({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                image: item.image,
+                threadless_url: item.threadless_url || '',
+                qty: 1
+            });
+        }
+        saveCart();
+        renderCart();
+        flashCartButton();
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(c => c.id !== id);
+        saveCart();
+        renderCart();
+    }
+
+    function updateQty(id, delta) {
+        const item = cart.find(c => c.id === id);
+        if (!item) return;
+        item.qty += delta;
+        if (item.qty <= 0) {
+            removeFromCart(id);
+            return;
+        }
+        saveCart();
+        renderCart();
+    }
+
+    function saveCart() {
+        try {
+            localStorage.setItem('casualTerroristCart', JSON.stringify(cart));
+        } catch (e) {}
+    }
+
+    function getCartTotal() {
+        return cart.reduce((sum, item) => {
+            const price = parseFloat(item.price.replace('$', '')) || 0;
+            return sum + price * item.qty;
+        }, 0);
+    }
+
+    function renderCart() {
+        const countEl = document.getElementById('cartCount');
+        const totalItems = cart.reduce((sum, c) => sum + c.qty, 0);
+        countEl.textContent = totalItems;
+        countEl.className = 'cart-count' + (totalItems === 0 ? ' empty' : '');
+
+        const itemsEl = document.getElementById('cartItems');
+        const footerEl = document.getElementById('cartFooter');
+
+        if (cart.length === 0) {
+            itemsEl.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+            footerEl.style.display = 'none';
+            return;
+        }
+
+        footerEl.style.display = 'block';
+        let html = '';
+
+        for (const item of cart) {
+            html += `
+        <div class="cart-item">
+          <div class="cart-item-img">
+            <img src="${item.image}" alt="${item.name}">
+          </div>
+          <div class="cart-item-details">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-meta">
+              Qty:
+              <span onclick="updateQty('${item.id}', -1)" style="cursor:pointer; padding: 0 6px;">-</span>
+              ${item.qty}
+              <span onclick="updateQty('${item.id}', 1)" style="cursor:pointer; padding: 0 6px;">+</span>
+            </div>
+            <div class="cart-item-price">${item.price} ${item.qty > 1 ? 'x ' + item.qty : ''}</div>
+            <button class="cart-item-remove" onclick="removeFromCart('${item.id}')">Remove</button>
+          </div>
+        </div>
+      `;
+        }
+
+
+        itemsEl.innerHTML = html;
+        document.getElementById('cartTotal').textContent = '$' + getCartTotal().toFixed(2);
+    }
+
+    function toggleCart() {
+        document.getElementById('cartSidebar').classList.toggle('open');
+        document.getElementById('cartOverlay').classList.toggle('open');
+    }
+
+    function flashCartButton() {
+        const btn = document.getElementById('cartToggle');
+        btn.style.borderColor = '#5cda39';
+        btn.style.background = '#1a2a15';
+        setTimeout(() => {
+            btn.style.borderColor = '#333';
+            btn.style.background = '#111';
+        }, 600);
+    }
+
+    // ===== CATEGORY NAV =====
+    document.getElementById('merchNav').addEventListener('click', (e) => {
+        const link = e.target.closest('a[data-category]');
+        if (!link) return;
+        e.preventDefault();
+        document.querySelectorAll('.merch-nav a').forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+        activeCategory = link.dataset.category;
+        renderMerch();
+    });
+
+    // ===== SEARCH =====
+    let searchTimeout;
+    document.getElementById('merchSearch').addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(() => {
+            searchQuery = e.target.value.trim();
+            // Reset category to all when searching
+            if (searchQuery) {
+                document.querySelectorAll('.merch-nav a').forEach(a => a.classList.remove('active'));
+                document.querySelector('.merch-nav a[data-category="all"]').classList.add('active');
+                activeCategory = 'all';
+            }
+            renderMerch();
+        }, 250);
+    });
+
+    // ===== LOAD =====
+    async function loadMerch() {
+        try {
+            const response = await fetch('../data/merch.md');
+            if (!response.ok) throw new Error('Failed to load merch.md');
+            const text = await response.text();
+            merchData = parseMerchMarkdown(text);
+            renderMerch();
+            renderCart();
+        } catch (err) {
+            console.error('Error loading merch:', err);
+            document.getElementById('merchContainer').innerHTML =
+                '<div class="merch-loading">Error loading merch catalog.</div>';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadMerch);
+</script>
+
+</body>
+</html>
