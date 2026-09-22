@@ -1,0 +1,218 @@
+/* ===== CLOTHES PAGE - THREADLESS STYLE ===== */
+
+.clothes-header {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.container {
+    max-width: 1400px;
+    width: 95%;
+    margin: 0 auto;
+    padding-top: 40px;
+    display: block;
+}
+
+/* 4-column grid */
+.clothing-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    width: 100%;
+}
+
+/* Individual card */
+.clothing-item {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.clothing-item:hover {
+    transform: scale(1.02);
+}
+
+/* Image container - dark card with border */
+.clothing-item .item-card {
+    background-color: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.clothing-item:hover .item-card {
+    border-color: #555;
+}
+
+.clothing-item .item-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Fallback: if images are directly inside clothing-item (no .item-card wrapper) */
+.clothing-item > img {
+    background-color: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    aspect-ratio: 1;
+    object-fit: contain;
+    padding: 20px;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.clothing-item:hover > img {
+    border-color: #555;
+}
+
+/* Green title below each card */
+.clothing-item .item-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 4px;
+}
+
+.clothing-item .item-title span {
+    color: #5cda39;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+/* Heart/favorite icon */
+.clothing-item .item-title .item-fav {
+    color: #5cda39;
+    font-size: 1.2rem;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.clothing-item:hover .item-title .item-fav {
+    opacity: 1;
+}
+
+/* Footer text */
+.footer-text {
+    text-align: center;
+    color: #5cda39;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 60px 0 40px 0;
+    width: 100%;
+}
+
+/* Modal overrides for clothes page */
+.modal-content {
+    position: relative;
+    margin: 5% auto;
+    max-width: 600px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+.modal-info {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.modal-title {
+    color: #5cda39;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.8rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.modal-size {
+    color: #999;
+    font-size: 0.9rem;
+    margin-top: 8px;
+}
+
+.modal-description {
+    color: #ccc;
+    font-size: 1rem;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+.coming-soon {
+    color: #5cda39;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 1200px) {
+    .clothing-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-top: 20px;
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .clothing-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .clothing-item .item-title span {
+        font-size: 0.9rem;
+    }
+
+    .footer-text {
+        font-size: 1.2rem;
+        padding: 40px 0 30px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .clothing-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .clothing-item > img,
+    .clothing-item .item-card {
+        padding: 10px;
+    }
+
+    .clothing-item .item-title span {
+        font-size: 0.8rem;
+    }
+}

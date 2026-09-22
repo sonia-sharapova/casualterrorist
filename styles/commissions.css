@@ -1,0 +1,495 @@
+/* ===== COMMISSIONS PAGE ===== */
+
+.commissions-container {
+    max-width: 1100px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 50px 0 80px 0;
+}
+
+/* Intro section */
+.commissions-intro {
+    margin-bottom: 50px;
+}
+
+.commissions-title {
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 3rem;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.commissions-subtitle {
+    font-size: 1.1rem;
+    color: #999;
+    line-height: 1.7;
+    max-width: 650px;
+}
+
+/* Alternative contact methods */
+.commissions-alt-contact {
+    font-family: "Inconsolata", monospace;
+    font-optical-sizing: auto;
+    display: flex;
+    gap: 25px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+.alt-contact-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #777;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 10px 18px;
+    border: 1px solid #333;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.alt-contact-link:hover {
+    color: #5cda39;
+    border-color: #5cda39;
+}
+
+.alt-contact-link img {
+    width: 18px;
+    height: 18px;
+    filter: invert(0.5);
+    transition: filter 0.3s ease;
+}
+
+.alt-contact-link:hover img {
+    filter: invert(0.7) sepia(1) saturate(5) hue-rotate(80deg);
+}
+
+/* ===== PREVIOUS WORK SECTION ===== */
+
+.commissions-divider {
+    width: 100%;
+    height: 1px;
+    background: #222;
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.8rem;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #5cda39;
+    margin-bottom: 25px;
+}
+
+/* Category filter nav */
+.commission-filter {
+    display: flex;
+    gap: 0;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #222;
+}
+
+.commission-filter a {
+    padding: 10px 22px;
+    color: #777;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.commission-filter a:hover {
+    color: #ccc;
+}
+
+.commission-filter a.active {
+    color: #5cda39;
+    border-bottom-color: #5cda39;
+}
+
+/* Portfolio grid */
+.commission-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+/* Individual portfolio card */
+.commission-card {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.commission-card:hover {
+    transform: scale(1.02);
+}
+
+.commission-card .card-image {
+    background-color: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+}
+
+.commission-card:hover .card-image {
+    border-color: #555;
+}
+
+.commission-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Placeholder for missing images */
+.commission-card .card-image .placeholder {
+    color: #333;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.commission-card .card-info {
+    padding: 10px 4px 0 4px;
+}
+
+.commission-card .card-name {
+    color: #fff;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.commission-card .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.commission-card .card-type {
+    color: #5cda39;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.commission-card .card-year {
+    color: #555;
+    font-size: 0.75rem;
+}
+
+/* Commission detail modal */
+.commission-modal-body {
+    display: flex;
+    gap: 30px;
+    max-width: 800px;
+    margin: 5% auto;
+    padding: 20px;
+}
+
+.commission-modal-image {
+    flex: 1;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.commission-modal-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.commission-modal-info h2 {
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.8rem;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.commission-modal-info .modal-type {
+    color: #5cda39;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+}
+
+.commission-modal-info .modal-client {
+    color: #777;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+}
+
+.commission-modal-info .modal-desc {
+    color: #aaa;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Empty state */
+.commission-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #444;
+    padding: 40px 0;
+    font-style: italic;
+}
+
+/* ===== FORM SECTION ===== */
+
+.commissions-form-title {
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.6rem;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #5cda39;
+    margin-bottom: 30px;
+}
+
+.commission-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 700px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    flex: 1;
+}
+
+.form-label {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+}
+
+.form-label .required {
+    color: #5cda39;
+    margin-left: 2px;
+}
+
+.form-input,
+.form-textarea {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 3px;
+    padding: 12px 16px;
+    color: #fff;
+    font-family: "Mozilla Text", sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 100%;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: #444;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    border-color: #5cda39;
+}
+
+.form-input.error,
+.form-textarea.error {
+    border-color: #ff4444;
+}
+
+.form-error-msg {
+    color: #ff4444;
+    font-size: 0.75rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.form-group.has-error .form-error-msg {
+    display: block;
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 160px;
+    line-height: 1.6;
+}
+
+.form-submit {
+    display: inline-block;
+    padding: 14px 40px;
+    background: #5cda39;
+    color: #000;
+    border: none;
+    border-radius: 3px;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+.form-submit:hover {
+    background: #4fc030;
+    transform: translateY(-1px);
+}
+
+.form-submit:active {
+    transform: translateY(0);
+}
+
+.form-submit:disabled {
+    background: #333;
+    color: #666;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.form-status {
+    margin-top: 20px;
+    padding: 14px 20px;
+    border-radius: 3px;
+    font-size: 0.95rem;
+    display: none;
+}
+
+.form-status.success {
+    display: block;
+    background: rgba(92, 218, 57, 0.1);
+    border: 1px solid #5cda39;
+    color: #5cda39;
+}
+
+.form-status.form-error-state {
+    display: block;
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid #ff4444;
+    color: #ff4444;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 1200px) {
+    .commission-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .commissions-container {
+        padding: 30px 0 60px 0;
+        width: 95%;
+    }
+
+    .commissions-title {
+        font-size: 2.2rem;
+    }
+
+    .commission-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .commissions-alt-contact {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .alt-contact-link {
+        justify-content: center;
+    }
+
+    .form-submit {
+        width: 100%;
+        text-align: center;
+    }
+
+    .commission-filter {
+        flex-wrap: wrap;
+    }
+
+    .commission-filter a {
+        padding: 8px 14px;
+        font-size: 0.95rem;
+    }
+
+    .commission-modal-body {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .commissions-title {
+        font-size: 1.8rem;
+    }
+
+    .commissions-subtitle {
+        font-size: 1rem;
+    }
+
+    .commission-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .commission-card .card-name {
+        font-size: 0.95rem;
+    }
+
+    .commission-card .card-type,
+    .commission-card .card-year {
+        font-size: 0.65rem;
+    }
+
+    .form-input,
+    .form-textarea {
+        padding: 10px 14px;
+        font-size: 0.95rem;
+    }
+}

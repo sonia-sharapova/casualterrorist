@@ -1,0 +1,731 @@
+/* ===== MERCH PAGE ===== */
+
+/* Search bar */
+.merch-search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    background-color: #0a0a0a;
+    border-bottom: 1px solid #222;
+}
+
+.merch-search-bar input {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 16px;
+    background-color: #111;
+    border: 1px solid #333;
+    border-radius: 3px;
+    color: #fff;
+    font-family: "Mozilla Text", sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.merch-search-bar input::placeholder {
+    color: #666;
+}
+
+.merch-search-bar input:focus {
+    border-color: #5cda39;
+}
+
+.merch-search-results-count {
+    color: #666;
+    font-size: 0.8rem;
+    margin-left: 12px;
+    white-space: nowrap;
+}
+
+/* Category sub-navigation */
+.merch-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    border-bottom: 1px solid #333;
+    background-color: #0a0a0a;
+}
+
+.merch-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 30px;
+    color: #999;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-right: 1px solid #222;
+    cursor: pointer;
+}
+
+.merch-nav a:last-child {
+    border-right: none;
+}
+
+.merch-nav a:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.merch-nav a.active {
+    color: #5cda39;
+    border-bottom: 2px solid #5cda39;
+}
+
+/* Container */
+.merch-container {
+    max-width: 1400px;
+    width: 95%;
+    margin: 0 auto;
+    padding-top: 40px;
+    padding-bottom: 60px;
+    display: block;
+}
+
+.merch-coming-soon {
+    text-align: center;
+    color: #5cda39;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 100px 0;
+}
+
+/* Section headings */
+.merch-section-title {
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 2rem;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #5cda39;
+    padding: 30px 0 20px 0;
+    border-bottom: 1px solid #222;
+    margin-bottom: 25px;
+}
+
+.merch-section-title:first-of-type {
+    padding-top: 0;
+}
+
+/* 4-column grid */
+.merch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+/* Individual card */
+.merch-item {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.merch-item:hover {
+    transform: scale(1.02);
+}
+
+/* Image container */
+.merch-item .item-card {
+    background-color: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+    position: relative;
+}
+
+.merch-item:hover .item-card {
+    border-color: #555;
+}
+
+.merch-item .item-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Quick-add overlay on hover */
+.merch-item .item-card .quick-add {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(92, 218, 57, 0.9);
+    color: #000;
+    text-align: center;
+    padding: 8px;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.merch-item:hover .item-card .quick-add {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Title + price row */
+.merch-item .item-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 4px 2px 4px;
+}
+
+.merch-item .item-info .item-name {
+    color: #5cda39;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.merch-item .item-info .item-price {
+    color: #999;
+    font-family: "Mozilla Text", sans-serif;
+    font-size: 0.9rem;
+}
+
+/* Sizes row */
+.merch-item .item-sizes {
+    padding: 2px 4px 0 4px;
+    color: #555;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+/* Buy on Threadless link */
+.merch-item .item-threadless {
+    padding: 4px 4px 0 4px;
+}
+
+.merch-item .item-threadless a {
+    color: #777;
+    font-size: 0.7rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.3s ease;
+}
+
+.merch-item .item-threadless a:hover {
+    color: #5cda39;
+}
+
+/* Heart icon */
+.merch-item .item-fav {
+    color: #5cda39;
+    font-size: 1rem;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+    padding: 2px 4px 0 0;
+    text-align: right;
+    cursor: pointer;
+}
+
+.merch-item .item-fav:hover,
+.merch-item:hover .item-fav {
+    opacity: 1;
+}
+
+/* Loading / empty */
+.merch-loading {
+    text-align: center;
+    color: #666;
+    font-size: 1.2rem;
+    padding: 60px 0;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* Footer */
+.merch-footer {
+    text-align: center;
+    color: #5cda39;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 40px 0 20px 0;
+    width: 100%;
+}
+
+/* ===== CART ICON IN HEADER ===== */
+.cart-toggle {
+    position: fixed;
+    bottom: 15px;
+    right: 20px;
+    z-index: 999;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 10px 14px;
+    cursor: pointer;
+    color: #fff;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.cart-toggle:hover {
+    border-color: #5cda39;
+    background: #1a1a1a;
+}
+
+.cart-toggle .cart-count {
+    background: #5cda39;
+    color: #000;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.cart-toggle .cart-count.empty {
+    background: #333;
+    color: #666;
+}
+
+/* ===== CART SIDEBAR ===== */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.cart-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -420px;
+    width: 400px;
+    max-width: 90vw;
+    height: 100%;
+    background: #111;
+    border-left: 1px solid #333;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease;
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #333;
+}
+
+.cart-header h2 {
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.5rem;
+    font-weight: normal;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.cart-close {
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 5px;
+}
+
+.cart-close:hover {
+    color: #fff;
+}
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.cart-empty {
+    text-align: center;
+    color: #555;
+    font-size: 1rem;
+    padding: 40px 0;
+    font-style: italic;
+}
+
+.cart-item {
+    display: flex;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #222;
+    align-items: center;
+}
+
+.cart-item-img {
+    width: 70px;
+    height: 70px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 5px;
+}
+
+.cart-item-img img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.cart-item-details {
+    flex: 1;
+}
+
+.cart-item-name {
+    color: #5cda39;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.cart-item-meta {
+    color: #777;
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.cart-item-price {
+    color: #fff;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.cart-item-remove {
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 0;
+    transition: color 0.3s ease;
+}
+
+.cart-item-remove:hover {
+    color: #ff4444;
+}
+
+/* Cart footer */
+.cart-footer {
+    padding: 20px;
+    border-top: 1px solid #333;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.cart-total-label {
+    color: #999;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.cart-total-amount {
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.cart-checkout-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: #5cda39;
+    color: #000;
+    border: none;
+    border-radius: 3px;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.cart-checkout-btn:hover {
+    background: #4fc030;
+}
+
+.cart-threadless-note {
+    text-align: center;
+    color: #555;
+    font-size: 0.7rem;
+    margin-top: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Modal overrides */
+.modal-content {
+    position: relative;
+    margin: 3% auto;
+    max-width: 700px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-image {
+    max-width: 100%;
+    max-height: 50vh;
+    object-fit: contain;
+}
+
+.modal-info {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.modal-title {
+    color: #5cda39;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.8rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.modal-price {
+    color: #fff;
+    font-size: 1.2rem;
+    margin-top: 6px;
+}
+
+.modal-description {
+    color: #ccc;
+    font-size: 1rem;
+    margin-top: 8px;
+    line-height: 1.5;
+}
+
+.modal-sizes {
+    color: #777;
+    font-size: 0.85rem;
+    margin-top: 6px;
+}
+
+.coming-soon {
+    color: #5cda39;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.modal-add-cart {
+    padding: 12px 30px;
+    background: #5cda39;
+    color: #000;
+    border: none;
+    border-radius: 3px;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-add-cart:hover {
+    background: #4fc030;
+}
+
+.modal-buy-threadless {
+    padding: 12px 30px;
+    background: transparent;
+    color: #999;
+    border: 1px solid #444;
+    border-radius: 3px;
+    font-family: "League Gothic", "Mozilla Text", sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.modal-buy-threadless:hover {
+    color: #fff;
+    border-color: #999;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 1200px) {
+    .merch-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .merch-nav a {
+        padding: 12px 20px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .merch-container {
+        padding-top: 20px;
+        width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .merch-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .merch-nav {
+        flex-wrap: wrap;
+    }
+
+    .merch-nav a {
+        padding: 10px 15px;
+        font-size: 1rem;
+        flex: 1;
+        min-width: 0;
+        text-align: center;
+    }
+
+    .merch-section-title {
+        font-size: 1.5rem;
+    }
+
+    .merch-item .item-info .item-name {
+        font-size: 0.9rem;
+    }
+
+    .merch-footer {
+        font-size: 1.2rem;
+        padding: 30px 0 20px 0;
+    }
+
+    .cart-toggle {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .cart-sidebar {
+        width: 100%;
+        max-width: 100vw;
+    }
+
+    .merch-search-bar {
+        padding: 10px 15px;
+    }
+
+    .merch-search-bar input {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .merch-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .merch-item .item-card {
+        padding: 10px;
+    }
+
+    .merch-nav a {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    .merch-item .item-info .item-name {
+        font-size: 0.8rem;
+    }
+}
