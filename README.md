@@ -2,9 +2,10 @@
 Portfolio website for artist @ casualterrorist
 
 ## Pages
-### Home page:** index.html: Landing page with page direction.
+### Home page:
+*index.html:* Landing page with page direction.
 
-<img width="1000" alt="home" src="https://github.com/user-attachments/assets/92cc3688-196f-4c9a-8aa3-b8e53d39981e" />
+<img width="1000" height="500 " alt="home" src="https://github.com/user-attachments/assets/92cc3688-196f-4c9a-8aa3-b8e53d39981e" />
 
 **Shop page:** pages/clothes.html: Merchandise shop that redirects to threadless profile.
 <img width="1000" alt="shirts" src="https://github.com/user-attachments/assets/64ec2d4b-9299-4c0a-a01c-319034212cf2" />
