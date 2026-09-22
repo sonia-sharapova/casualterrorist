@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ryanw0rld - Videos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../styles/video.css">
+</head>
+<body>
+<!-- Matrix Background -->
+<canvas id="matrix-bg"></canvas>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+    <div class="header-name">
+        <a href="../index.html" class="header-logo">
+            <h2>CASUAL</h2>
+            <img src="/images/assets/rotate.gif" alt="Casual Terrorist">
+            <h2>TERRORIST</h2>
+        </a>
+    </div>
+    <div class="header-right">
+        <div class="header-row-top">
+            <a href="./merch.html" class="navig-button">
+                <h1>Merch</h1>
+            </a>
+            <a href="./art.html" class="navig-button">
+                <h1>Animations</h1>
+            </a>
+            <a href="./video.html" class="navig-button">
+                <h1 style="color: #000000; background-color: rgb(255,255,255);">Video</h1>
+            </a>
+            <a href="./about.html" class="navig-button">
+                <h1>About</h1>
+            </a>
+        </div>
+        <div class="header-row-bottom">
+            <a href="bts.html">
+                B.T.S.
+            </a>
+            <a href="contact.html">
+                Contact
+            </a>
+            <a href="commissions.html">
+                <img src="../images/assets/mail.png" alt="Email"> Commissions
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- <h1 class="title">SHORT FILMS</h1> -->
+
+    <div class="videos-list" id="videosList">
+        <div class="video-loading">Loading videos...</div>
+    </div>
+</div>
+
+<!-- Video Modal -->
+<div id="videoModal" class="modal">
+    <div class="modal-content">
+        <button class="close" onclick="closeVideoModal()">&times;</button>
+        <div class="modal-video-container">
+            <iframe id="modalYouTube"
+                    width="100%"
+                    height="450"
+                    src=""
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+        </div>
+        <div class="modal-info">
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <p id="modalDescription" class="modal-description"></p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="footer-name">
+        <a href="../index.html">
+            <img src="../images/assets/rotate.gif"  style="height: 100px;" alt="PFP">
+        </a>
+    </div>
+
+    <div class="footer-row-bottom">
+        <a href="mailto:rhilde1818@gmail.com">
+            <img src="../images/assets/mail.png" alt="Email"> Contact
+        </a>
+        <a href="https://www.instagram.com/casual.terrorist/">
+            <img src="../images/assets/insta.png" alt="Instagram"> Instagram
+        </a>
+        <a href="https://www.tiktok.com/@casual.terrorist?is_from_webapp=1&sender_device=pc">
+            <img src="../images/assets/tiktok.png" alt="TikTok"> TikTok
+        </a>
+        <a href="https://www.youtube.com/channel/UC4k2STj3XBi1BfdG-i7tC5Q">
+            <img src="../images/assets/youtube.png" alt="YouTube"> YouTube
+        </a>
+    </div>
+    <div class="footer-note">
+        All works are done without the use of AI
+    </div>
+</div>
+
+
+<script src="../script.js"></script>
+<script>
+    // ===== MARKDOWN PARSER =====
+    function parseVideosMarkdown(md) {
+        const videos = [];
+        let current = null;
+
+        for (const line of md.split('\n')) {
+            const t = line.trim();
+            if (t.startsWith('## ')) {
+                current = {
+                    title: t.replace('## ', ''),
+                    youtube_id: '', cover: '', year: '',
+                    description: '', stills: []
+                };
+                videos.push(current);
+            } else if (t.startsWith('- ') && current) {
+                const m = t.match(/^- ([\w_]+):\s*(.+)$/);
+                if (m) {
+                    if (m[1] === 'stills') {
+                        current.stills = m[2].split(',').map(s => s.trim()).filter(Boolean);
+                    } else {
+                        current[m[1]] = m[2];
+                    }
+                }
+            }
+        }
+        return videos;
+    }
+
+    // ===== RENDER =====
+    function renderVideos(videos) {
+        const list = document.getElementById('videosList');
+        list.innerHTML = '';
+
+        for (const video of videos) {
+            const item = document.createElement('div');
+            item.className = 'video-item';
+            item.onclick = () => openVideoModal(video.youtube_id, video.title, video.description);
+
+            // Duplicate stills for seamless loop
+            const allStills = [...video.stills, ...video.stills];
+            const stillsHtml = allStills.map(src =>
+                `<div class="still-thumb"><img src="${src}" alt="Still"></div>`
+            ).join('');
+
+            item.innerHTML = `
+                <div class="video-top">
+                    <div class="video-cover">
+                        <img src="${video.cover}" alt="${video.title}">
+                        <div class="play-overlay">&#9654;</div>
+                    </div>
+                    <div class="video-right">
+                        <div class="video-info">
+                            <h3 class="video-title">${video.title}</h3>
+                            <div class="video-year">${video.year}</div>
+                            <div class="video-description">${video.description}</div>
+                        </div>
+                        <div class="video-stills">
+                            <div class="stills-track">
+                                ${stillsHtml}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            list.appendChild(item);
+        }
+
+        // Fade-in animation
+        const items = list.querySelectorAll('.video-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 150);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '50px' });
+
+        items.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(item);
+        });
+    }
+
+    // ===== MODAL =====
+    function openVideoModal(youtubeId, title, description) {
+        const modal = document.getElementById('videoModal');
+        document.getElementById('modalYouTube').src =
+            `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
+        document.getElementById('modalTitle').textContent = title;
+        document.getElementById('modalDescription').textContent = description;
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => { modal.style.opacity = '1'; }, 10);
+    }
+
+    function closeVideoModal() {
+        const modal = document.getElementById('videoModal');
+        document.getElementById('modalYouTube').src = '';
+        modal.style.opacity = '0';
+        setTimeout(() => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }, 300);
+    }
+
+    window.addEventListener('click', (e) => {
+        if (e.target === document.getElementById('videoModal')) closeVideoModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeVideoModal();
+    });
+
+    // ===== LOAD =====
+    async function loadVideos() {
+        try {
+            const response = await fetch('../data/videos.md');
+            if (!response.ok) throw new Error('Failed to load videos.md');
+            const text = await response.text();
+            renderVideos(parseVideosMarkdown(text));
+        } catch (err) {
+            console.error('Error loading videos:', err);
+            document.getElementById('videosList').innerHTML =
+                '<div class="video-loading">Error loading videos.</div>';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadVideos);
+</script>
+
+</body>
+</html>
